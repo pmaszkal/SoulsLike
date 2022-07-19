@@ -20,12 +20,16 @@ namespace PM
         public float followSpeed = 0.1f;
         public float pivotSpeed = 0.03f;
 
+        private float targetPosisiton;
         private float defaultPosition;
         private float lookAngle;
         private float pivotAngle;
         public float minimumPivot = -35;
         public float maximumPivot = 35;
 
+        public float cameraSphereRadius = 0.2f;
+        public float cameraCollisionOffset = 0.2f;
+        public float minimumCollisionOffset = 0.2f;
 
         private void Awake()
         {
@@ -40,6 +44,8 @@ namespace PM
             Vector3 targetPosition = Vector3.SmoothDamp
                 (myTransform.position, targetTransform.position, ref cameraFollowVelocity, delta / followSpeed);
             myTransform.position = targetPosition;
+
+            HandleCameraCollisions(delta);
         }
 
         public void HandlerCameraRotation(float delta, float mouseXInput, float mouseYInput)
@@ -58,6 +64,30 @@ namespace PM
 
             targetRotation = Quaternion.Euler(rotation);
             cameraPivotTransfrom.localRotation = targetRotation;
+        }
+
+        private void HandleCameraCollisions(float delta)
+        {
+            targetPosisiton = defaultPosition;
+            RaycastHit hit;
+            Vector3 direction = cameraTransform.position - cameraPivotTransfrom.position;
+            direction.Normalize();
+
+            if (Physics.SphereCast(cameraPivotTransfrom.position, cameraSphereRadius, direction, out hit
+                , Mathf.Abs(targetPosisiton), ignoreLayers))
+            {
+                float dis = Vector3.Distance(cameraPivotTransfrom.position, hit.point);
+                Debug.Log($" {-(dis - cameraCollisionOffset)} | {Mathf.Abs(-(dis - cameraCollisionOffset)) < minimumCollisionOffset} | {-minimumCollisionOffset}");
+                targetPosisiton = -(dis - cameraCollisionOffset);
+            }
+
+            if (Mathf.Abs(targetPosisiton) < minimumCollisionOffset)
+            {
+                targetPosisiton = -minimumCollisionOffset;
+            }
+
+            cameraTransformPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosisiton, delta / 0.2f);
+            cameraTransform.localPosition = cameraTransformPosition;
         }
     }
 }

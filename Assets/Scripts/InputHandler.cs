@@ -27,7 +27,7 @@ namespace PM
         {
             float delta = Time.fixedDeltaTime;
 
-            if (cameraHandler !=null)
+            if (cameraHandler != null)
             {
                 cameraHandler.FollowTarget(delta);
                 cameraHandler.HandlerCameraRotation(delta, mouseX, mouseY);
