@@ -12,6 +12,11 @@ namespace PM
         public float mouseX;
         public float mouseY;
 
+        public bool b_Input;
+        public bool rollFlag;
+        public bool isInteracting;
+        public bool bPressed;
+
         PlayerControls inputActions;
         CameraHandler cameraHandler;
 
@@ -41,6 +46,7 @@ namespace PM
                 inputActions = new PlayerControls();
                 inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
                 inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+                inputActions.PlayerActions.Roll.started += i => bPressed = true;
             }
 
             inputActions.Enable();
@@ -54,6 +60,7 @@ namespace PM
         public void TickInput(float delta)
         {
             MoveInput(delta);
+            HandleRollInput(delta);
         }
 
         private void MoveInput(float delta)
@@ -63,6 +70,16 @@ namespace PM
             moveAmount = Mathf.Clamp01(Mathf.Abs(horizontal) + Mathf.Abs(vertical));
             mouseX = cameraInput.x;
             mouseY = cameraInput.y;
+        }
+
+        private void HandleRollInput(float delta)
+        {
+            b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Started;
+            if (bPressed)
+            {
+                rollFlag = true;
+            }
+            bPressed = false;
         }
     }
 }

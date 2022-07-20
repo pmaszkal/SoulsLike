@@ -77,7 +77,6 @@ namespace PM
                 , Mathf.Abs(targetPosisiton), ignoreLayers))
             {
                 float dis = Vector3.Distance(cameraPivotTransfrom.position, hit.point);
-                Debug.Log($" {-(dis - cameraCollisionOffset)} | {Mathf.Abs(-(dis - cameraCollisionOffset)) < minimumCollisionOffset} | {-minimumCollisionOffset}");
                 targetPosisiton = -(dis - cameraCollisionOffset);
             }
 
