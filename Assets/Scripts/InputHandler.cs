@@ -13,6 +13,8 @@ namespace PM
         public float mouseY;
 
         public bool b_Input;
+        public bool rb_Input;
+        public bool rt_Input;
 
         public bool rollFlag;
         public float rollInputTimer;
@@ -20,9 +22,17 @@ namespace PM
         public bool bPressed = false;
 
         PlayerControls inputActions;
+        PlayerAttacker playerAttacker;
+        PlayerInventory playerInventory;
 
         Vector2 movementInput;
         Vector2 cameraInput;
+
+        private void Awake()
+        {
+            playerAttacker = GetComponent<PlayerAttacker>();
+            playerInventory = GetComponent<PlayerInventory>();
+        }
 
         private void OnEnable()
         {
@@ -46,6 +56,7 @@ namespace PM
         {
             MoveInput(delta);
             HandleRollInput(delta);
+            HandleAttackInput(delta);
         }
 
         private void MoveInput(float delta)
@@ -76,7 +87,24 @@ namespace PM
 
                 rollInputTimer = 0;
             }
-            //bPressed = false;
+        }
+
+        private void HandleAttackInput(float delta)
+        {
+            inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+            inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+
+
+            //rb for right hand weapon
+            if(rb_Input)
+            {
+                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            }
+            if(rt_Input)
+            {
+                playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
+            }
+
         }
     }
 }

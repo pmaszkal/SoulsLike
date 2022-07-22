@@ -33,8 +33,8 @@ namespace PM
         [Header("Movement Stats")]
         [SerializeField]
         float movementSpeed = 5;
-        //[SerializeField]
-        //float walkingSpeed = 1;
+        [SerializeField]
+        float walkingSpeed = 1;
         [SerializeField]
         float sprintSpeed = 7;
         [SerializeField]
@@ -98,12 +98,25 @@ namespace PM
 
             float speed = movementSpeed;
 
-            if (inputHandler.sprintFlag)
+            if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5)
             {
                 speed = sprintSpeed;
                 playerManager.isSprinting = true;
+                moveDirection *= speed;
             }
-            moveDirection *= speed;
+            else
+            {
+                if (inputHandler.moveAmount < 0.5)
+                {
+                    moveDirection *= walkingSpeed;
+                    playerManager.isSprinting = false;
+                }
+                else
+                {
+                    moveDirection *= speed;
+                    playerManager.isSprinting = false;
+                }
+            }
 
             Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDirection, normalVector);
             rigidbody.velocity = projectedVelocity;
@@ -172,7 +185,7 @@ namespace PM
 
                 if (playerManager.isInAir)
                 {
-                    if(inAirTimer > 0.5f)
+                    if (inAirTimer > 0.5f)
                     {
                         Debug.Log("you were in the air for " + inAirTimer);
                         animatorHandler.PlayTargetAnimation("Land", true);
@@ -180,8 +193,8 @@ namespace PM
                     }
                     else
                     {
-                        //animatorHandler.PlayTargetAnimation("Empty", false);
-                        animatorHandler.PlayTargetAnimation("Locomotion", false);
+                        //animatorHandler.PlayTargetAnimation("Locomotion", false);
+                        animatorHandler.PlayTargetAnimation("Empty", false);
                         inAirTimer = 0;
                     }
 
@@ -195,9 +208,9 @@ namespace PM
                     playerManager.isGrounded = false;
                 }
 
-                if(playerManager.isInAir == false)
+                if (playerManager.isInAir == false)
                 {
-                    if(playerManager.isInteracting == false)
+                    if (playerManager.isInteracting == false)
                     {
                         animatorHandler.PlayTargetAnimation("Falling", true);
                     }
@@ -209,9 +222,9 @@ namespace PM
                 }
             }
 
-            if(playerManager.isGrounded)
+            if (playerManager.isGrounded)
             {
-                if(playerManager.isInteracting || inputHandler.moveAmount > 0)
+                if (playerManager.isInteracting || inputHandler.moveAmount > 0)
                 {
                     myTransform.position = Vector3.Lerp(myTransform.position, targetPosition, Time.deltaTime);
                 }
