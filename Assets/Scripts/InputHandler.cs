@@ -19,11 +19,13 @@ namespace PM
         public bool rollFlag;
         public float rollInputTimer;
         public bool sprintFlag;
+        public bool comboFlag;
         public bool bPressed = false;
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
+        PlayerManager playerManager;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -32,6 +34,7 @@ namespace PM
         {
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
+            playerManager = GetComponent<PlayerManager>();
         }
 
         private void OnEnable()
@@ -96,12 +99,30 @@ namespace PM
 
 
             //rb for right hand weapon
-            if(rb_Input)
+            if (rb_Input)
             {
-                playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                if (playerManager.canDoCombo)
+                {
+                    comboFlag = true;
+                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+                    comboFlag = false;
+                }
+                else
+                {
+                    if (playerManager.isInteracting)
+                        return;
+                    if (playerManager.canDoCombo)
+                        return;
+                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+                }
+
             }
-            if(rt_Input)
+            if (rt_Input)
             {
+                if (playerManager.isInteracting)
+                    return;
+                if (playerManager.canDoCombo)
+                    return;
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
 

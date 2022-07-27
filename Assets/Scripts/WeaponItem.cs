@@ -11,7 +11,8 @@ namespace PM
         public bool isUnarmed;
 
         [Header("One Handed Attack Animations")]
-        public string OH_Light_Attack_1;
-        public string OH_Heavy_Attack_1;
+        public string OH_Light_Attack_01;
+        public string OH_Light_Attack_02;
+        public string OH_Heavy_Attack_01;
     }
 }
