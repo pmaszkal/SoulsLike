@@ -10,7 +10,11 @@ namespace PM
         public GameObject modelPrefab;
         public bool isUnarmed;
 
-        [Header("One Handed Attack Animations")]
+        [Header("Idle Animations")]
+        public string right_Hand_Idle;
+        public string left_Hand_Idle;
+
+        [Header("Attack Animations")]
         public string OH_Light_Attack_01;
         public string OH_Light_Attack_02;
         public string OH_Heavy_Attack_01;
