@@ -766,7 +766,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24848
+  m_Name: pb_Mesh24870
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7141,6 +7141,10 @@ MonoBehaviour:
   b_Input: 0
   rb_Input: 0
   rt_Input: 0
+  d_Pad_Up: 0
+  d_Pad_Down: 0
+  d_Pad_Left: 0
+  d_Pad_Right: 0
   rollFlag: 0
   rollInputTimer: 0
   sprintFlag: 0
@@ -7207,6 +7211,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightWeapon: {fileID: 11400000, guid: cea8ea6bb076dac4b91053b44bb04818, type: 2}
   leftWeapon: {fileID: 11400000, guid: cea8ea6bb076dac4b91053b44bb04818, type: 2}
+  unarmedWeapon: {fileID: 11400000, guid: 568200f75e54b9a42b4c3c7fc3015b2a, type: 2}
+  weaponsInRightHandSlots:
+  - {fileID: 11400000, guid: cea8ea6bb076dac4b91053b44bb04818, type: 2}
+  - {fileID: 0}
+  weaponsInLeftHandSlots:
+  - {fileID: 11400000, guid: cea8ea6bb076dac4b91053b44bb04818, type: 2}
+  - {fileID: 0}
+  currentRightWeaponIndex: 0
+  currentLeftWeaponIndex: 0
 --- !u!114 &1856572123
 MonoBehaviour:
   m_ObjectHideFlags: 0
