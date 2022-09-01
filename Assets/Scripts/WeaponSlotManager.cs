@@ -12,14 +12,19 @@ namespace PM
         DamageCollider leftHandDamageCollider;
         DamageCollider rightHandDamageCollider;
 
+        public WeaponItem attackingWeapon;
+
         Animator animator;
 
         QuickSlotsUI quickSlotsUI;
+
+        PlayerStats playerStats;
 
         private void Awake()
         {
             animator = GetComponent<Animator>();
             quickSlotsUI = FindObjectOfType<QuickSlotsUI>();
+            playerStats = GetComponentInParent<PlayerStats>();
 
             WeaponHolderSlot[] weaponHolderSlots = GetComponentsInChildren<WeaponHolderSlot>();
             foreach (WeaponHolderSlot weaponHolderSlot in weaponHolderSlots)
@@ -101,5 +106,15 @@ namespace PM
         }
 
         #endregion
+
+        public void DrainStaminaLightAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStaminaCost * attackingWeapon.lightAttackMultiplier));
+        }
+
+        public void DrainStaminaHeavyAttack()
+        {
+            playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStaminaCost * attackingWeapon.heavyAttackMultiplier));
+        }
     }
 }

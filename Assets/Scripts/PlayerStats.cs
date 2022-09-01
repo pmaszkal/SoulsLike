@@ -10,6 +10,10 @@ namespace PM
         public int maxHealth;
         public int currentHealth;
 
+        public int staminaLevel = 10;
+        public int maxStamina;
+        public int currentStamina;
+
         public HealthBar healthBar;
         AnimatorHandler animatorHandler;
 
@@ -23,11 +27,21 @@ namespace PM
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
             healthBar.SetMaxHealth(maxHealth);
+            healthBar.SetCurrentHealth(currentHealth);
+
+            maxStamina = SetMaxStaminaFromHealthLevel();
+            currentStamina = maxStamina;
+            //set bar
         }
 
         private int SetMaxHealthFromHealthLevel()
         {
             return maxHealth = healthLevel * 10;
+        }
+
+        private int SetMaxStaminaFromHealthLevel()
+        {
+            return maxStamina = staminaLevel * 10;
         }
 
         public void TakeDamage(int damage)
@@ -44,6 +58,12 @@ namespace PM
                 animatorHandler.PlayTargetAnimation("Death_01", true);
                 //Handle player death;
             }
+        }
+
+        public void TakeStaminaDamage(int damage)
+        {
+            currentStamina = currentStamina - damage;
+            //set bar
         }
     }
 }
