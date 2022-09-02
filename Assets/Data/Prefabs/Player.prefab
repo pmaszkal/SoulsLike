@@ -62,7 +62,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989869444705756297}
-  m_LocalRotation: {x: -0, y: 0.70713776, z: -0, w: 0.70707583}
+  m_LocalRotation: {x: 0, y: 0.7071376, z: 0, w: 0.707076}
   m_LocalPosition: {x: 8.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -224,7 +224,11 @@ MonoBehaviour:
   healthLevel: 10
   maxHealth: 0
   currentHealth: 0
+  staminaLevel: 10
+  maxStamina: 0
+  currentStamina: 0
   healthBar: {fileID: 0}
+  staminaBar: {fileID: 0}
 --- !u!1001 &1989869444942891634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -338,6 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d9f96afc7af7c4b8891f0a063f3ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackingWeapon: {fileID: 0}
 --- !u!4 &2024322724247432601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 17c3197617e9d344fbeaca2cfa137110, type: 3}

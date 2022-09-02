@@ -33,7 +33,6 @@ namespace PM
 
         public void HandleLightAttack(WeaponItem weapon)
         {
-            Debug.Log(weapon.OH_Light_Attack_01);
             if (weapon.OH_Light_Attack_01.Length > 0)
             {
                 weaponSlotManager.attackingWeapon = weapon;

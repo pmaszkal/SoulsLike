@@ -15,6 +15,7 @@ namespace PM
         public int currentStamina;
 
         public HealthBar healthBar;
+        public StaminaBar staminaBar;
         AnimatorHandler animatorHandler;
 
         private void Awake()
@@ -31,7 +32,8 @@ namespace PM
 
             maxStamina = SetMaxStaminaFromHealthLevel();
             currentStamina = maxStamina;
-            //set bar
+            staminaBar.SetMaxStamina(maxStamina);
+            staminaBar.SetCurrentStamina(currentStamina);
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -63,7 +65,7 @@ namespace PM
         public void TakeStaminaDamage(int damage)
         {
             currentStamina = currentStamina - damage;
-            //set bar
+            staminaBar.SetCurrentStamina(currentStamina);
         }
     }
 }
