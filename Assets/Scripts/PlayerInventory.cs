@@ -19,6 +19,8 @@ namespace PM
         public int currentRightWeaponIndex = -1;
         public int currentLeftWeaponIndex = -1;
 
+        public List<WeaponItem> weaponsInventory;
+
         public void Awake()
         {
             WeaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
