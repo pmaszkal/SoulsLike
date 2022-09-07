@@ -77,6 +77,7 @@ namespace PM
             inputHandler.a_Input = false;
             inputHandler.b_Input = false;
             inputHandler.jump_Input = false;
+            inputHandler.inventory_Input = false;
 
             if (isInAir)
             {

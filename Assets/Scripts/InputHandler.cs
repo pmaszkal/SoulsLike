@@ -21,17 +21,20 @@ namespace PM
         public bool d_Pad_Down;
         public bool d_Pad_Left;
         public bool d_Pad_Right;
+        public bool inventory_Input;
 
         public bool rollFlag;
         public float rollInputTimer;
         public bool sprintFlag;
         public bool comboFlag;
+        public bool inventoryFlag;
         public bool bPressed = false;
 
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        UIManager uiManager;
 
         Vector2 movementInput;
         Vector2 cameraInput;
@@ -41,6 +44,7 @@ namespace PM
             playerAttacker = GetComponent<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
+            uiManager = FindObjectOfType<UIManager>();
         }
 
         private void OnEnable()
@@ -53,6 +57,7 @@ namespace PM
                 inputActions.PlayerActions.Roll.started += i => bPressed = true;
                 inputActions.PlayerActions.Interact.performed += i => a_Input = true;
                 inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
+                inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
             }
 
             inputActions.Enable();
@@ -69,6 +74,7 @@ namespace PM
             HandleRollInput(delta);
             HandleAttackInput(delta);
             HandleQuickSlotInput();
+            HandleInventoryInput();
         }
 
         private void MoveInput(float delta)
@@ -155,5 +161,21 @@ namespace PM
         //{
         //    inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
         //}
+
+        private void HandleInventoryInput()
+        {
+            if (inventory_Input)
+            {
+                inventoryFlag = !inventoryFlag;
+                if (inventoryFlag)
+                {
+                    uiManager.openSelectWindow();
+                }
+                else
+                {
+                    uiManager.closeSelectWindow();
+                }
+            }
+        }
     }
 }
