@@ -17,12 +17,16 @@ namespace PM
         public bool rb_Input;
         public bool rt_Input;
         public bool jump_Input;
+        public bool inventory_Input;
+        public bool lock_On_Input;
+
         public bool d_Pad_Up;
         public bool d_Pad_Down;
         public bool d_Pad_Left;
         public bool d_Pad_Right;
-        public bool inventory_Input;
 
+
+        public bool lockOnFlag;
         public bool rollFlag;
         public float rollInputTimer;
         public bool sprintFlag;
@@ -34,6 +38,7 @@ namespace PM
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
+        CameraHandler cameraHandler;
         UIManager uiManager;
 
         Vector2 movementInput;
@@ -45,6 +50,7 @@ namespace PM
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             uiManager = FindObjectOfType<UIManager>();
+            cameraHandler = FindObjectOfType<CameraHandler>();
         }
 
         private void OnEnable()
@@ -62,6 +68,7 @@ namespace PM
                 inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
                 inputActions.PlayerActions.RB.performed += i => rb_Input = true;
                 inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+                inputActions.PlayerActions.LockOn.performed += i => lock_On_Input = true;
                 inputActions.PlayerQuickSlots.DPadRight.performed += i => d_Pad_Right = true;
                 inputActions.PlayerQuickSlots.DPadLeft.performed += i => d_Pad_Left = true;
             }
@@ -81,6 +88,7 @@ namespace PM
             HandleAttackInput(delta);
             HandleQuickSlotInput();
             HandleInventoryInput();
+            HandleLockOnInput();
         }
 
         private void MoveInput(float delta)
@@ -179,6 +187,27 @@ namespace PM
                     uiManager.hudWindow.SetActive(true);
                     uiManager.closeAllInventoryWindows();
                 }
+            }
+        }
+
+        private void HandleLockOnInput()
+        {
+            if (lock_On_Input && lockOnFlag == false)
+            {
+                cameraHandler.ClearLockOnTargets();
+                lock_On_Input = false;
+                cameraHandler.HandleLockOn();
+                if (cameraHandler.nearestLockOnTarget != null)
+                {
+                    cameraHandler.currentLockOnTarget = cameraHandler.nearestLockOnTarget;
+                    lockOnFlag = true;
+                }
+            }
+            else if (lock_On_Input && lockOnFlag)
+            {
+                lock_On_Input = false;
+                lockOnFlag = false;
+                cameraHandler.ClearLockOnTargets();
             }
         }
     }
