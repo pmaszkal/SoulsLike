@@ -170,10 +170,14 @@ namespace PM
                 if (inventoryFlag)
                 {
                     uiManager.openSelectWindow();
+                    uiManager.UpdateUI();
+                    uiManager.hudWindow.SetActive(false);
                 }
                 else
                 {
                     uiManager.closeSelectWindow();
+                    uiManager.hudWindow.SetActive(true);
+                    uiManager.closeAllInventoryWindows();
                 }
             }
         }
