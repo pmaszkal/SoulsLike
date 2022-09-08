@@ -7,6 +7,7 @@ namespace PM
     public class CameraHandler : MonoBehaviour
     {
         InputHandler inputHandler;
+        PlayerManager playerManager;
 
         public Transform targetTransform;
         public Transform cameraTransform;
@@ -14,6 +15,7 @@ namespace PM
         private Transform myTransform;
         private Vector3 cameraTransformPosition;
         public LayerMask ignoreLayers;
+        public LayerMask enviromentLayer;
         private Vector3 cameraFollowVelocity = Vector3.zero;
 
         public static CameraHandler singleton;
@@ -32,21 +34,31 @@ namespace PM
         public float cameraSphereRadius = 0.2f;
         public float cameraCollisionOffset = 0.2f;
         public float minimumCollisionOffset = 0.2f;
+        public float lockedPivotPosistion = 2.25f;
+        public float unlockedPivotPosition = 1.65f;
 
         public Transform currentLockOnTarget;
 
         List<CharacterManager> availableTargets = new List<CharacterManager>();
         public Transform nearestLockOnTarget;
-        public float maximuumLockOnDistance = 30f;
+        public Transform leftLockTarget;
+        public Transform rightLockTarget;
+        public float maximumLockOnDistance = 30f;
 
         private void Awake()
         {
             singleton = this;
             myTransform = transform;
             defaultPosition = cameraTransform.localPosition.z;
-            ignoreLayers = ~(1 << 8 | 1 << 9 | 1 << 10);
+            ignoreLayers = ~(1 << 7 | 1 << 9 | 1 << 10);
             targetTransform = FindObjectOfType<PlayerManager>().transform;
             inputHandler = FindObjectOfType<InputHandler>();
+            playerManager = FindObjectOfType<PlayerManager>();
+        }
+
+        private void Start()
+        {
+            enviromentLayer = LayerMask.NameToLayer("Enviroment");
         }
 
         public void FollowTarget(float delta)
@@ -122,25 +134,45 @@ namespace PM
 
         public void HandleLockOn()
         {
+            availableTargets.Clear();
+
             float shortestDistance = Mathf.Infinity;
+            float shortestDistanceOfLeftTarget = Mathf.Infinity;
+            float shortestDistanceOfRightTarget = Mathf.Infinity;
 
             Collider[] colliders = Physics.OverlapSphere(targetTransform.position, 26);
 
-            for (int i = 0; i < colliders.Length; i++)
+            if (colliders.Length > 0)
             {
-                CharacterManager character = colliders[i].GetComponent<CharacterManager>();
-
-                if (character != null)
+                for (int i = 0; i < colliders.Length; i++)
                 {
-                    Vector3 lockTargetDirection = character.transform.position - targetTransform.position;
-                    float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
-                    float viewableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
+                    CharacterManager character = colliders[i].GetComponent<CharacterManager>();
 
-                    if (character.transform.root != targetTransform.transform.root
-                        && viewableAngle > -50 && viewableAngle < 50
-                        && distanceFromTarget <= maximuumLockOnDistance)
+                    if (character != null)
                     {
-                        availableTargets.Add(character);
+                        Vector3 lockTargetDirection = character.transform.position - targetTransform.position;
+                        float distanceFromTarget = Vector3.Distance(targetTransform.position, character.transform.position);
+                        float viewableAngle = Vector3.Angle(lockTargetDirection, cameraTransform.forward);
+                        RaycastHit hit;
+
+                        if (character.transform.root != targetTransform.transform.root
+                            && viewableAngle > -50 && viewableAngle < 50
+                            && distanceFromTarget <= maximumLockOnDistance)
+                        {
+                            if (Physics.Linecast(playerManager.lockOnTransform.position, character.lockOnTransform.position, out hit))
+                            {
+                                Debug.DrawLine(playerManager.lockOnTransform.position, character.lockOnTransform.position);
+
+                                if (hit.transform.gameObject.layer == enviromentLayer)
+                                {
+                                    //cannot lock on
+                                }
+                                else
+                                {
+                                    availableTargets.Add(character);
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -152,15 +184,51 @@ namespace PM
                         shortestDistance = distanceFromTarget;
                         nearestLockOnTarget = availableTargets[k].lockOnTransform;
                     }
+
+                    if (inputHandler.lockOnFlag)
+                    {
+                        Vector3 relativeEnemyPosition =
+                            currentLockOnTarget.InverseTransformPoint(availableTargets[k].transform.position);
+                        var distanceFromLeftTarget = currentLockOnTarget.transform.position.x
+                            - availableTargets[k].transform.position.x;
+                        var distanceFromRightTarget = currentLockOnTarget.transform.position.x
+                            + availableTargets[k].transform.position.x;
+
+                        if (relativeEnemyPosition.x > 0.00 && distanceFromLeftTarget < shortestDistanceOfLeftTarget)
+                        {
+                            shortestDistanceOfLeftTarget = distanceFromLeftTarget;
+                            leftLockTarget = availableTargets[k].lockOnTransform;
+                        }
+                        if (relativeEnemyPosition.x < 0.00 && distanceFromRightTarget < shortestDistanceOfRightTarget)
+                        {
+                            shortestDistanceOfRightTarget = distanceFromRightTarget;
+                            rightLockTarget = availableTargets[k].lockOnTransform;
+                        }
+                    }
                 }
             }
         }
-
         public void ClearLockOnTargets()
         {
             availableTargets.Clear();
             nearestLockOnTarget = null;
             currentLockOnTarget = null;
+        }
+
+        public void SetCameraHeight()
+        {
+            Vector3 velocity = Vector3.zero;
+            Vector3 newLockedPosition = new Vector3(0, lockedPivotPosistion);
+            Vector3 newUnlockedPosition = new Vector3(0, unlockedPivotPosition);
+
+            if (currentLockOnTarget != null)
+            {
+                cameraPivotTransfrom.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransfrom.transform.localPosition, newLockedPosition, ref velocity, Time.deltaTime);
+            }
+            else
+            {
+                cameraPivotTransfrom.transform.localPosition = Vector3.SmoothDamp(cameraPivotTransfrom.transform.localPosition, newUnlockedPosition, ref velocity, Time.deltaTime);
+            }
         }
     }
 }

@@ -54,19 +54,19 @@ namespace PM
             #region Horizontal
             float h = 0;
 
-            if (verticalMovement > 0 && verticalMovement < 0.55f)
+            if (horizontalMovement > 0 && horizontalMovement < 0.55f)
             {
                 h = 0.5f;
             }
-            else if (verticalMovement > 0.55f)
+            else if (horizontalMovement > 0.55f)
             {
                 h = 1;
             }
-            else if (verticalMovement < 0 && verticalMovement > -0.55f)
+            else if (horizontalMovement < 0 && horizontalMovement > -0.55f)
             {
                 h = -0.5f;
             }
-            else if (verticalMovement < -0.55f)
+            else if (horizontalMovement < -0.55f)
             {
                 h = -1;
             }
@@ -79,10 +79,11 @@ namespace PM
             if (isSprinting)
             {
                 v = 2;
-                h = horizontal;
             }
 
+            //anim.SetFloat(vertical, v);
             anim.SetFloat(vertical, v, 0.1f, Time.deltaTime);
+            //anim.SetFloat(horizontal, h);
             anim.SetFloat(horizontal, h, 0.1f, Time.deltaTime);
         }
 

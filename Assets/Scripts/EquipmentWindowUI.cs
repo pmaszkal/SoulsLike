@@ -13,7 +13,7 @@ namespace PM
 
         HandEquipmentSlotUI[] handEquipmentSlotUI;
 
-        private void Start()
+        private void Awake()
         {
             handEquipmentSlotUI = GetComponentsInChildren<HandEquipmentSlotUI>();
         }
