@@ -9811,6 +9811,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1989869444705756301, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1989869444705756302, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -9857,7 +9861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1989869444705756303, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: fallingSpeed
-      value: 20
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
@@ -10222,6 +10226,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3712774348568933540, guid: 7ccebe5f3fc42ad4abbf36f9f37acdb0, type: 3}
+      propertyPath: lookSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712774348568933540, guid: 7ccebe5f3fc42ad4abbf36f9f37acdb0, type: 3}
+      propertyPath: pivotSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 3712774348568933540, guid: 7ccebe5f3fc42ad4abbf36f9f37acdb0, type: 3}
       propertyPath: targetTransform
       value: 

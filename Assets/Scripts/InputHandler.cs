@@ -54,10 +54,16 @@ namespace PM
                 inputActions = new PlayerControls();
                 inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
                 inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
-                inputActions.PlayerActions.Roll.started += i => bPressed = true;
+                //inputActions.PlayerActions.Roll.started += i => bPressed = true;
+                //inputActions.PlayerActions.Roll.started += i => b_Input = true;
+                //inputActions.PlayerActions.Roll.canceled += i => b_Input = false;
                 inputActions.PlayerActions.Interact.performed += i => a_Input = true;
                 inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
                 inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
+                inputActions.PlayerActions.RB.performed += i => rb_Input = true;
+                inputActions.PlayerActions.RT.performed += i => rt_Input = true;
+                inputActions.PlayerQuickSlots.DPadRight.performed += i => d_Pad_Right = true;
+                inputActions.PlayerQuickSlots.DPadLeft.performed += i => d_Pad_Left = true;
             }
 
             inputActions.Enable();
@@ -89,11 +95,10 @@ namespace PM
         private void HandleRollInput(float delta)
         {
             b_Input = inputActions.PlayerActions.Roll.phase == UnityEngine.InputSystem.InputActionPhase.Performed;
+            sprintFlag = b_Input;
             if (b_Input)
             {
                 rollInputTimer += delta;
-                sprintFlag = true;
-
             }
             else
             {
@@ -109,9 +114,6 @@ namespace PM
 
         private void HandleAttackInput(float delta)
         {
-            inputActions.PlayerActions.RB.performed += i => rb_Input = true;
-            inputActions.PlayerActions.RT.performed += i => rt_Input = true;
-
 
             //rb for right hand weapon
             if (rb_Input)
@@ -145,8 +147,6 @@ namespace PM
 
         private void HandleQuickSlotInput()
         {
-            inputActions.PlayerQuickSlots.DPadRight.performed += i => d_Pad_Right = true;
-            inputActions.PlayerQuickSlots.DPadLeft.performed += i => d_Pad_Left = true;
             if (d_Pad_Right)
             {
                 playerInventory.ChangeRightWeapon();

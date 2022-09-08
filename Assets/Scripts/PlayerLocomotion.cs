@@ -97,7 +97,6 @@ namespace PM
             moveDirection.y = 0;
 
             float speed = movementSpeed;
-
             if (inputHandler.sprintFlag && inputHandler.moveAmount > 0.5)
             {
                 speed = sprintSpeed;
