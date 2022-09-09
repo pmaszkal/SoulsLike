@@ -18,9 +18,12 @@ MonoBehaviour:
   isUnarmed: 0
   right_Hand_Idle: Right_Arm_Idle_01
   left_Hand_Idle: Left_Arm_Idle_01
+  th_Idle: TH_Idle_001
   OH_Light_Attack_01: OH_Light_Attack_01
   OH_Light_Attack_02: OH_Light_Attack_02
   OH_Heavy_Attack_01: OH_Heavy_Attack_01
+  TH_Light_Attack_01: TH_Sword_Attack_01
+  TH_Light_Attack_02: TH_Sword_Attack_02
   baseStaminaCost: 20
   lightAttackMultiplier: 1
   heavyAttackMultiplier: 2

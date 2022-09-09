@@ -28,6 +28,10 @@ namespace PM
                 {
                     animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_02, true);
                 }
+                else if (lastAttack == weapon.TH_Light_Attack_01)
+                {
+                    animatorHandler.PlayTargetAnimation(weapon.TH_Light_Attack_02, true);
+                }
             }
         }
 
@@ -36,13 +40,22 @@ namespace PM
             if (weapon.OH_Light_Attack_01.Length > 0)
             {
                 weaponSlotManager.attackingWeapon = weapon;
-                animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_01, true);
-                lastAttack = weapon.OH_Light_Attack_01;
+                if (inputHandler.twoHandFlag)
+                {
+                    animatorHandler.PlayTargetAnimation(weapon.TH_Light_Attack_01, true);
+                    lastAttack = weapon.TH_Light_Attack_01;
+                }
+                else
+                {
+                    animatorHandler.PlayTargetAnimation(weapon.OH_Light_Attack_01, true);
+                    lastAttack = weapon.OH_Light_Attack_01;
+                }
             }
         }
 
         public void HandleHeavyAttack(WeaponItem weapon)
         {
+            //tak samo jak dla light attack TODO
             weaponSlotManager.attackingWeapon = weapon;
             animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_01, true);
             lastAttack = weapon.OH_Heavy_Attack_01;

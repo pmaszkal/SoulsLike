@@ -8957,37 +8957,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741247685}
   m_CullTransparentMesh: 1
---- !u!1 &1748772638
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1748772639}
-  m_Layer: 10
-  m_Name: Lock On Transform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1748772639
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1748772638}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.277, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1856572116}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1811728819
 GameObject:
   m_ObjectHideFlags: 0
@@ -10070,18 +10039,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1989869444705756288, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
-      propertyPath: weaponsInLeftHandSlots.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: ee459c8050ae9314e8b7ccd849ae29d2, type: 2}
-    - target: {fileID: 1989869444705756288, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
-      propertyPath: weaponsInRightHandSlots.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: ee459c8050ae9314e8b7ccd849ae29d2, type: 2}
-    - target: {fileID: 1989869444705756291, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
-      propertyPath: lockOnTransform
-      value: 
-      objectReference: {fileID: 1748772639}
     - target: {fileID: 1989869444705756291, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: interactableUIGameObject
       value: 
@@ -10101,10 +10058,6 @@ PrefabInstance:
     - target: {fileID: 1989869444705756297, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989869444705756301, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1989869444705756302, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: m_RootOrder
@@ -10149,10 +10102,6 @@ PrefabInstance:
     - target: {fileID: 1989869444705756302, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1989869444705756303, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
-      propertyPath: fallingSpeed
-      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
