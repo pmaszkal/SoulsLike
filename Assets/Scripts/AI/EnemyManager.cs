@@ -7,7 +7,7 @@ namespace PM
     public class EnemyManager : CharacterManager
     {
         EnemyLocomotionManager enemyLocomotionManager;
-        bool isPerformingAction;
+        public bool isPerformingAction;
 
         [Header("AI Settings")]
         public float detectionRadius = 20;
@@ -21,6 +21,11 @@ namespace PM
 
         private void Update()
         {
+            
+        }
+
+        private void FixedUpdate()
+        {
             HandleCurrentAction();
         }
 
@@ -29,6 +34,10 @@ namespace PM
             if (enemyLocomotionManager.currentTarget == null)
             {
                 enemyLocomotionManager.HandleDetection();
+            }
+            else
+            {
+                enemyLocomotionManager.HandleMoveToTarget();
             }
         }
 
