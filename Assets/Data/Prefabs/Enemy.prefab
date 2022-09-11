@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5137802788867056354}
   - component: {fileID: 5137802788867056353}
   - component: {fileID: 1570685933}
+  - component: {fileID: 5137802789598943874}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -83,6 +84,9 @@ MonoBehaviour:
   healthLevel: 1
   maxHealth: 0
   currentHealth: 0
+  staminaLevel: 10
+  maxStamina: 0
+  currentStamina: 0
 --- !u!136 &5137802788867056354
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -126,6 +130,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnTransform: {fileID: 1595565790}
+  detectionRadius: 20
+  maximumDetectionAngle: 50
+  minimumDetectionAngle: -50
+--- !u!114 &5137802789598943874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137802788867056352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97fa5350771b6042871ec4efea3eae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentTarget: {fileID: 0}
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &5137802789699370901
 PrefabInstance:
   m_ObjectHideFlags: 0
