@@ -59,6 +59,9 @@ namespace PM
 
         public void HandleMoveToTarget()
         {
+            if (enemyManager.isPerformingAction)
+                return;
+
             Vector3 targetDir = currentTarget.transform.position - transform.position;
             distanceFromTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
             float viewabelAngle = Vector3.Angle(targetDir, transform.forward);

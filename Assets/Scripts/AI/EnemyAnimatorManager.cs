@@ -11,6 +11,7 @@ namespace PM
         private void Awake()
         {
             anim = GetComponent<Animator>();
+            anim.fireEvents = false;
             enemyLocomotionManager = GetComponentInParent<EnemyLocomotionManager>();
         }
 
