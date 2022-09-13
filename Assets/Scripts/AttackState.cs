@@ -13,7 +13,8 @@ namespace PM
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
             Vector3 targetDir = enemyManager.currentTarget.transform.position - transform.position;
-            float viewabelAngle = Vector3.Angle(targetDir, transform.forward);
+            float distanceFromTarget = Vector3.Distance(enemyManager.currentTarget.transform.position, enemyManager.transform.position);
+            float viewableAngle = Vector3.Angle(targetDir, transform.forward);
 
             if (enemyManager.isPerformingAction)
                 return combatStanceState;
@@ -21,16 +22,16 @@ namespace PM
             if (currentAttack != null)
             {
                 //if we are too close to the enemy to perform current attack, get a new attack
-                if (enemyManager.distanceFromTarget < currentAttack.minimumDistanceNeededToAttack)
+                if (distanceFromTarget < currentAttack.minimumDistanceNeededToAttack)
                 {
                     return this;
                 }
                 //if we are close enough to attack, then let us proceed
-                else if (enemyManager.distanceFromTarget < currentAttack.maximumDistanceNeededToAttack)
+                else if (distanceFromTarget < currentAttack.maximumDistanceNeededToAttack)
                 {
                     //if our enemy is within our attack viewable angle, we attack
-                    if (enemyManager.viewableAngle < currentAttack.maximumAttackAngle
-                        && enemyManager.viewableAngle >= currentAttack.minimumAttackAngle)
+                    if (viewableAngle < currentAttack.maximumAttackAngle
+                        && viewableAngle >= currentAttack.minimumAttackAngle)
                     {
                         if (enemyManager.currentRecoveryTime <= 0 && enemyManager.isPerformingAction == false)
                         {
@@ -71,7 +72,7 @@ namespace PM
         {
             Vector3 targertDirection = enemyManager.currentTarget.transform.position - transform.position;
             float viewableAngle = Vector3.Angle(targertDirection, transform.forward);
-            enemyManager.distanceFromTarget = Vector3.Distance(
+            float distanceFromTarget = Vector3.Distance(
                 enemyManager.currentTarget.transform.position, transform.position);
 
             int maxScore = 0;
@@ -80,8 +81,8 @@ namespace PM
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
 
-                if (enemyManager.distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && enemyManager.distanceFromTarget > enemyAttackAction.minimumDistanceNeededToAttack)
+                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
+                    && distanceFromTarget > enemyAttackAction.minimumDistanceNeededToAttack)
                 {
                     if (viewableAngle <= enemyAttackAction.maximumAttackAngle
                         && viewableAngle > enemyAttackAction.minimumAttackAngle)
@@ -98,8 +99,8 @@ namespace PM
             {
                 EnemyAttackAction enemyAttackAction = enemyAttacks[i];
 
-                if (enemyManager.distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
-                    && enemyManager.distanceFromTarget > enemyAttackAction.minimumDistanceNeededToAttack)
+                if (distanceFromTarget <= enemyAttackAction.maximumDistanceNeededToAttack
+                    && distanceFromTarget > enemyAttackAction.minimumDistanceNeededToAttack)
                 {
                     if (viewableAngle <= enemyAttackAction.maximumAttackAngle
                         && viewableAngle > enemyAttackAction.minimumAttackAngle)
