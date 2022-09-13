@@ -2482,7 +2482,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1030253211}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &493948321
 GameObject:
@@ -3439,7 +3439,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1030253211}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &702027837 stripped
 MonoBehaviour:
@@ -5125,6 +5125,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   enemyRigidbody: {fileID: 0}
   isPerformingAction: 0
+  isInteracting: 0
   distanceFromTarget: 0
   rotationSpeed: 15
   maximumAttackRange: 1.5
@@ -5314,6 +5315,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1286471780}
   - {fileID: 677913186}
   - {fileID: 478225055}
   - {fileID: 1189345100}
@@ -5577,7 +5579,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1030253211}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1095449540
 MonoBehaviour:
@@ -5950,7 +5952,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1030253211}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1189345101
 MonoBehaviour:
@@ -6506,6 +6508,58 @@ MonoBehaviour:
   rightHandSlot02: 0
   leftHandSlot01: 0
   leftHandSlot02: 0
+--- !u!1 &1286471778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286471780}
+  - component: {fileID: 1286471779}
+  m_Layer: 0
+  m_Name: Ambush State
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1286471779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286471778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94bb6a87f86db4945bab1d0daff600d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSleeping: 1
+  detectionRadius: 2
+  sleepAnimation: Sleep
+  wakeAnimation: Get Up
+  detectionLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  pursueTargetState: {fileID: 478225054}
+--- !u!4 &1286471780
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286471778}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1030253211}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1300074648
 GameObject:
   m_ObjectHideFlags: 0
@@ -6923,6 +6977,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   enemyRigidbody: {fileID: 0}
   isPerformingAction: 0
+  isInteracting: 0
   distanceFromTarget: 0
   rotationSpeed: 15
   maximumAttackRange: 1.5
@@ -13088,7 +13143,7 @@ PrefabInstance:
     - target: {fileID: 1570685933, guid: c55d1e7259dce994498ea4d9b8f4c43f, type: 3}
       propertyPath: currentState
       value: 
-      objectReference: {fileID: 677913185}
+      objectReference: {fileID: 1286471779}
     - target: {fileID: 1570685933, guid: c55d1e7259dce994498ea4d9b8f4c43f, type: 3}
       propertyPath: enemyAttacks.Array.size
       value: 2
