@@ -42,6 +42,9 @@ namespace PM
         [SerializeField]
         float fallingSpeed = 35;
 
+        public CapsuleCollider characterCollider;
+        public CapsuleCollider characterCollisionBlockerCollider;
+
         private void Awake()
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
@@ -59,6 +62,8 @@ namespace PM
 
             playerManager.isGrounded = true;
             ignoreForGroundCheck = ~(1 << 7 | 1 << 11);
+
+            Physics.IgnoreCollision(characterCollider, characterCollisionBlockerCollider, true);
         }
 
         #region Movement;
@@ -95,7 +100,7 @@ namespace PM
                     rotationDirection.y = 0;
                     rotationDirection.Normalize();
                     Quaternion tr = Quaternion.LookRotation(rotationDirection);
-                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation,tr, rotationSpeed * Time.deltaTime);
+                    Quaternion targetRotation = Quaternion.Slerp(transform.rotation, tr, rotationSpeed * Time.deltaTime);
                     transform.rotation = targetRotation;
                 }
             }
@@ -168,7 +173,7 @@ namespace PM
                 animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0, playerManager.isSprinting);
             }
 
-            
+
 
             if (animatorHandler.canRotate)
             {
@@ -276,7 +281,7 @@ namespace PM
             else
             {
                 myTransform.position = targetPosition;
-            } 
+            }
 
 
 

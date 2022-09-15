@@ -11,7 +11,7 @@ namespace PM
         private void Awake()
         {
             anim = GetComponent<Animator>();
-            anim.fireEvents = false;
+            //anim.fireEvents = false;
             enemyManager = GetComponentInParent<EnemyManager>();
         }
 
@@ -23,6 +23,16 @@ namespace PM
             deltaPosition.y = 0;
             Vector3 velocity = deltaPosition / delta;
             enemyManager.enemyRigidbody.velocity = velocity;
+        }
+
+        public void EnableCombo()
+        {
+            //anim.SetBool("canDoCombo", true);
+        }
+
+        public void DisableCombo()
+        {
+            //anim.SetBool("canDoCombo", false);
         }
     }
 }

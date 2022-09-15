@@ -6,14 +6,18 @@ namespace PM
 {
     public class PlayerStats : CharacterStats
     {
-
+        PlayerManager playerManager;
         public HealthBar healthBar;
         public StaminaBar staminaBar;
         AnimatorHandler animatorHandler;
 
+        public float staminaRegenerationAmount = 30f;
+        public float staminaRegenerationTimer = 0;
+
         private void Awake()
         {
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            playerManager = GetComponent<PlayerManager>();
         }
 
         private void Start()
@@ -23,7 +27,7 @@ namespace PM
             healthBar.SetMaxHealth(maxHealth);
             healthBar.SetCurrentHealth(currentHealth);
 
-            maxStamina = SetMaxStaminaFromHealthLevel();
+            maxStamina = SetMaxStaminaFromStaminaLevel();
             currentStamina = maxStamina;
             staminaBar.SetMaxStamina(maxStamina);
             staminaBar.SetCurrentStamina(currentStamina);
@@ -34,23 +38,28 @@ namespace PM
             return maxHealth = healthLevel * 10;
         }
 
-        private int SetMaxStaminaFromHealthLevel()
+        private float SetMaxStaminaFromStaminaLevel()
         {
-            return maxStamina = staminaLevel * 10;
+            return maxStamina = staminaLevel * 10f;
         }
 
         public void TakeDamage(int damage)
         {
-            currentHealth = currentHealth - damage;
+            if (playerManager.isInvulnerable)
+                return;
+            if (isDead)
+                return;
 
+            currentHealth = currentHealth - damage;
             healthBar.SetCurrentHealth(currentHealth);
 
             animatorHandler.PlayTargetAnimation("Damage_01", true);
 
-            if(currentHealth <= 0)
+            if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 animatorHandler.PlayTargetAnimation("Death_01", true);
+                isDead = true;
                 //Handle player death;
             }
         }
@@ -59,6 +68,23 @@ namespace PM
         {
             currentStamina = currentStamina - damage;
             staminaBar.SetCurrentStamina(currentStamina);
+        }
+
+        public void RegenerateStamina()
+        {
+            if (playerManager.isInteracting)
+            {
+                staminaRegenerationTimer = 0;
+            }
+            else
+            {
+                staminaRegenerationTimer += Time.deltaTime;
+                if (currentStamina < maxStamina && staminaRegenerationTimer > 1f)
+                {
+                    currentStamina += staminaRegenerationAmount * Time.deltaTime;
+                    staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
+                }
+            }
         }
     }
 }

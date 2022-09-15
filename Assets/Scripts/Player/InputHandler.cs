@@ -44,6 +44,7 @@ namespace PM
         PlayerManager playerManager;
         WeaponSlotManager weaponSlotManager;
         CameraHandler cameraHandler;
+        AnimatorHandler animatorHandler;
         UIManager uiManager;
 
         Vector2 movementInput;
@@ -57,6 +58,7 @@ namespace PM
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
+            animatorHandler = GetComponentInChildren<AnimatorHandler>();
         }
 
         private void OnEnable()
@@ -148,6 +150,8 @@ namespace PM
                         return;
                     if (playerManager.canDoCombo)
                         return;
+
+                    animatorHandler.anim.SetBool("isUsingRightHand", true);
                     playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
                 }
 
@@ -158,6 +162,8 @@ namespace PM
                     return;
                 if (playerManager.canDoCombo)
                     return;
+
+                animatorHandler.anim.SetBool("isUsingRightHand", true);
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
 
