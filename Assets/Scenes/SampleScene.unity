@@ -7195,6 +7195,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420377854}
   m_CullTransparentMesh: 1
+--- !u!1 &1460069442 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1683227397013681955, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
+  m_PrefabInstance: {fileID: 1989869446293761626}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1460069447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460069442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090a448c03ce96a498d9768b26263048, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastAttack: 
 --- !u!1 &1520749793
 GameObject:
   m_ObjectHideFlags: 0
@@ -12490,7 +12508,8 @@ PrefabInstance:
       propertyPath: characterCollisionBlockerCollider
       value: 
       objectReference: {fileID: 1923142595}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1989869444705756289, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ce7639e25864e6438ce96e0fd330938, type: 3}
 --- !u!114 &1989869446293761627 stripped
 MonoBehaviour:

@@ -18,9 +18,16 @@ MonoBehaviour:
   isUnarmed: 1
   right_Hand_Idle: Right Arm Empty
   left_Hand_Idle: Left Arm Empty
+  th_Idle: 
   OH_Light_Attack_01: 
   OH_Light_Attack_02: 
   OH_Heavy_Attack_01: 
+  TH_Light_Attack_01: 
+  TH_Light_Attack_02: 
   baseStaminaCost: 0
   lightAttackMultiplier: 0
   heavyAttackMultiplier: 0
+  isSpellCaster: 0
+  isFaithCaster: 0
+  isPyroCaster: 0
+  isMeleeWeapon: 1

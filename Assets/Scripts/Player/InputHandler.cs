@@ -52,7 +52,7 @@ namespace PM
 
         private void Awake()
         {
-            playerAttacker = GetComponent<PlayerAttacker>();
+            playerAttacker = GetComponentInChildren<PlayerAttacker>();
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             uiManager = FindObjectOfType<UIManager>();
@@ -136,26 +136,32 @@ namespace PM
         {
 
             //rb for right hand weapon
+            //if (rb_Input)
+            //{
+            //    if (playerManager.canDoCombo)
+            //    {
+            //        comboFlag = true;
+            //        playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
+            //        comboFlag = false;
+            //    }
+            //    else
+            //    {
+            //        if (playerManager.isInteracting)
+            //            return;
+            //        if (playerManager.canDoCombo)
+            //            return;
+
+            //        animatorHandler.anim.SetBool("isUsingRightHand", true);
+            //        playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
+            //    }
+
+            //}
             if (rb_Input)
             {
-                if (playerManager.canDoCombo)
-                {
-                    comboFlag = true;
-                    playerAttacker.HandleWeaponCombo(playerInventory.rightWeapon);
-                    comboFlag = false;
-                }
-                else
-                {
-                    if (playerManager.isInteracting)
-                        return;
-                    if (playerManager.canDoCombo)
-                        return;
-
-                    animatorHandler.anim.SetBool("isUsingRightHand", true);
-                    playerAttacker.HandleLightAttack(playerInventory.rightWeapon);
-                }
-
+                playerAttacker.HandleRBAction();
             }
+
+
             if (rt_Input)
             {
                 if (playerManager.isInteracting)

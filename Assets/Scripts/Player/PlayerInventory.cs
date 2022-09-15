@@ -8,6 +8,7 @@ namespace PM
     {
         WeaponSlotManager WeaponSlotManager;
 
+        public SpellItem currentSpell;
         public WeaponItem rightWeapon;
         public WeaponItem leftWeapon;
 
