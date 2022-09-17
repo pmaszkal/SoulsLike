@@ -8,6 +8,7 @@ namespace PM
     {
         AnimatorHandler animatorHandler;
         PlayerManager playerManager;
+        PlayerStats playerStats;
         PlayerInventory playerInventory;
         InputHandler inputHandler;
         public string lastAttack;
@@ -18,6 +19,7 @@ namespace PM
         {
             animatorHandler = GetComponent<AnimatorHandler>();
             playerManager = GetComponentInParent<PlayerManager>();
+            playerStats = GetComponentInParent<PlayerStats>();
             playerInventory = GetComponentInParent<PlayerInventory>();
             inputHandler = GetComponentInParent<InputHandler>();
             weaponSlotManager = GetComponent<WeaponSlotManager>();
@@ -76,7 +78,7 @@ namespace PM
             {
                 PerformRBMagicAction(playerInventory.rightWeapon);
             }
-            
+
         }
 
         private void PerformRBMeleeAction()
@@ -101,14 +103,29 @@ namespace PM
 
         private void PerformRBMagicAction(WeaponItem weapon)
         {
+            if (playerManager.isInteracting)
+            {
+                return;
+            }
             if (weapon.isFaithCaster)
             {
                 if (playerInventory.currentSpell != null && playerInventory.currentSpell.isFaithSpell)
                 {
-                    //chcek for fp
-                    //attempt to cast spell
+                    if (playerStats.currentFocusPoints >= playerInventory.currentSpell.focusPointCost)
+                    {
+                        playerInventory.currentSpell.AttemptToCastSpell(animatorHandler, playerStats);
+                    }
+                    else
+                    {
+                        animatorHandler.PlayTargetAnimation("Shrug", true);
+                    }
                 }
             }
+        }
+
+        private void SuccessfullyCastSpell()
+        {
+            playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
         }
     }
 }

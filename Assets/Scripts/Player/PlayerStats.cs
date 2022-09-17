@@ -9,6 +9,7 @@ namespace PM
         PlayerManager playerManager;
         public HealthBar healthBar;
         public StaminaBar staminaBar;
+        public FocusPointBar focusPointBar;
         AnimatorHandler animatorHandler;
 
         public float staminaRegenerationAmount = 30f;
@@ -18,6 +19,10 @@ namespace PM
         {
             animatorHandler = GetComponentInChildren<AnimatorHandler>();
             playerManager = GetComponent<PlayerManager>();
+
+            healthBar = FindObjectOfType<HealthBar>();
+            staminaBar = FindObjectOfType<StaminaBar>();
+            focusPointBar = FindObjectOfType<FocusPointBar>();
         }
 
         private void Start()
@@ -31,6 +36,11 @@ namespace PM
             currentStamina = maxStamina;
             staminaBar.SetMaxStamina(maxStamina);
             staminaBar.SetCurrentStamina(currentStamina);
+
+            maxFocusPoints = SetMaxFocusPointsFromFocusLevel();
+            currentFocusPoints = maxFocusPoints;
+            focusPointBar.SetMaxFocusPoints(maxFocusPoints);
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -41,6 +51,11 @@ namespace PM
         private float SetMaxStaminaFromStaminaLevel()
         {
             return maxStamina = staminaLevel * 10f;
+        }
+
+        private float SetMaxFocusPointsFromFocusLevel()
+        {
+            return maxFocusPoints = focusLevel * 10;
         }
 
         public void TakeDamage(int damage)
@@ -85,6 +100,30 @@ namespace PM
                     staminaBar.SetCurrentStamina(Mathf.RoundToInt(currentStamina));
                 }
             }
+        }
+
+        public void HealPlayer(int amount)
+        {
+            currentHealth = currentHealth + amount;
+
+            if (currentHealth > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+
+            healthBar.SetCurrentHealth(currentHealth);
+        }
+
+        public void DeductFocusPoints(int focusPoints)
+        {
+            currentFocusPoints = currentFocusPoints - focusPoints;
+
+            if (currentFocusPoints < 0)
+            {
+                currentFocusPoints = 0;
+            }
+
+            focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
     }
 }

@@ -17,8 +17,8 @@ namespace PM
         public WeaponItem[] weaponsInRightHandSlots = new WeaponItem[2];
         public WeaponItem[] weaponsInLeftHandSlots = new WeaponItem[2];
 
-        public int currentRightWeaponIndex = -1;
-        public int currentLeftWeaponIndex = -1;
+        public int currentRightWeaponIndex;
+        public int currentLeftWeaponIndex;
 
         public List<WeaponItem> weaponsInventory;
 
@@ -29,14 +29,16 @@ namespace PM
 
         private void Start()
         {
-            rightWeapon = unarmedWeapon;
-            leftWeapon = unarmedWeapon;
-            currentRightWeaponIndex = -1;
-            currentLeftWeaponIndex = -1;
-            //rightWeapon = weaponsInRightHandSlots[currentRightWeaponIndex];
-            //leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
-            //WeaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
-            //WeaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
+            //rightWeapon = unarmedWeapon;
+            //leftWeapon = unarmedWeapon;
+            //currentRightWeaponIndex = -1;
+            //currentLeftWeaponIndex = -1;
+
+
+            rightWeapon = weaponsInRightHandSlots[currentRightWeaponIndex];
+            leftWeapon = weaponsInLeftHandSlots[currentLeftWeaponIndex];
+            WeaponSlotManager.LoadWeaponOnSlot(rightWeapon, false);
+            WeaponSlotManager.LoadWeaponOnSlot(leftWeapon, true);
         }
 
         public void ChangeRightWeapon()
