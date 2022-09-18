@@ -10,14 +10,14 @@ namespace PM
         public HealthBar healthBar;
         public StaminaBar staminaBar;
         public FocusPointBar focusPointBar;
-        AnimatorHandler animatorHandler;
+        PlayerAnimatorManager animatorHandler;
 
         public float staminaRegenerationAmount = 30f;
         public float staminaRegenerationTimer = 0;
 
         private void Awake()
         {
-            animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
             playerManager = GetComponent<PlayerManager>();
 
             healthBar = FindObjectOfType<HealthBar>();
@@ -76,6 +76,18 @@ namespace PM
                 animatorHandler.PlayTargetAnimation("Death_01", true);
                 isDead = true;
                 //Handle player death;
+            }
+        }
+
+        public void TakeDamageNoAnimation(int damage)
+        {
+            currentHealth = currentHealth - damage;
+            healthBar.SetCurrentHealth(currentHealth);
+
+            if (currentHealth <= 0)
+            {
+                currentHealth = 0;
+                isDead = true;
             }
         }
 

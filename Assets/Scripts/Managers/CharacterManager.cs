@@ -6,6 +6,15 @@ namespace PM
 {
     public class CharacterManager : MonoBehaviour
     {
+        [Header("Lock on Transform")]
         public Transform lockOnTransform;
+
+        [Header("Combat Colliders")]
+        public BoxCollider backStabBoxCollider;
+        public BackStabCollider backStabCollider;
+
+        //damage will be inflicted rugin an animation event
+        //used in backstab or riposte animations
+        public int pendingCriticalDamage;
     }
 }

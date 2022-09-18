@@ -17,6 +17,7 @@ namespace PM
         public bool b_Input;
         public bool rb_Input;
         public bool rt_Input;
+        public bool critical_Attack_Input;
         public bool jump_Input;
         public bool inventory_Input;
         public bool lock_On_Input;
@@ -38,13 +39,15 @@ namespace PM
         public bool inventoryFlag;
         public bool bPressed = false;
 
+        public Transform criticalAttackRayCastStartPoint;
+
         PlayerControls inputActions;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
         WeaponSlotManager weaponSlotManager;
         CameraHandler cameraHandler;
-        AnimatorHandler animatorHandler;
+        PlayerAnimatorManager animatorHandler;
         UIManager uiManager;
 
         Vector2 movementInput;
@@ -58,7 +61,7 @@ namespace PM
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
-            animatorHandler = GetComponentInChildren<AnimatorHandler>();
+            animatorHandler = GetComponentInChildren<PlayerAnimatorManager>();
         }
 
         private void OnEnable()
@@ -67,21 +70,22 @@ namespace PM
             {
                 inputActions = new PlayerControls();
                 inputActions.PlayerMovement.Movement.performed += inputActions => movementInput = inputActions.ReadValue<Vector2>();
-                inputActions.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
-                inputActions.PlayerMovement.LockOnTargetRight.performed += i => right_Stick_Right_Input = true;
-                inputActions.PlayerMovement.LockOnTargetLeft.performed += i => right_Stick_Left_Input = true;
-                //inputActions.PlayerActions.Roll.started += i => bPressed = true;
-                //inputActions.PlayerActions.Roll.started += i => b_Input = true;
-                //inputActions.PlayerActions.Roll.canceled += i => b_Input = false;
-                inputActions.PlayerActions.Interact.performed += i => a_Input = true;
-                inputActions.PlayerActions.Y.performed += i => y_Input = true;
-                inputActions.PlayerActions.Jump.performed += i => jump_Input = true;
-                inputActions.PlayerActions.Inventory.performed += i => inventory_Input = true;
-                inputActions.PlayerActions.RB.performed += i => rb_Input = true;
-                inputActions.PlayerActions.RT.performed += i => rt_Input = true;
-                inputActions.PlayerActions.LockOn.performed += i => lock_On_Input = true;
-                inputActions.PlayerQuickSlots.DPadRight.performed += i => d_Pad_Right = true;
-                inputActions.PlayerQuickSlots.DPadLeft.performed += i => d_Pad_Left = true;
+                inputActions.PlayerMovement.Camera.performed += _ => cameraInput = _.ReadValue<Vector2>();
+                inputActions.PlayerMovement.LockOnTargetRight.performed += _ => right_Stick_Right_Input = true;
+                inputActions.PlayerMovement.LockOnTargetLeft.performed += _ => right_Stick_Left_Input = true;
+                //inputActions.PlayerActions.Roll.started += _ => bPressed = true;
+                //inputActions.PlayerActions.Roll.started += _ => b_Input = true;
+                //inputActions.PlayerActions.Roll.canceled += _ => b_Input = false;
+                inputActions.PlayerActions.Interact.performed += _ => a_Input = true;
+                inputActions.PlayerActions.Y.performed += _ => y_Input = true;
+                inputActions.PlayerActions.Jump.performed += _ => jump_Input = true;
+                inputActions.PlayerActions.Inventory.performed += _ => inventory_Input = true;
+                inputActions.PlayerActions.RB.performed += _ => rb_Input = true;
+                inputActions.PlayerActions.RT.performed += _ => rt_Input = true;
+                inputActions.PlayerActions.LockOn.performed += _ => lock_On_Input = true;
+                inputActions.PlayerQuickSlots.DPadRight.performed += _ => d_Pad_Right = true;
+                inputActions.PlayerQuickSlots.DPadLeft.performed += _ => d_Pad_Left = true;
+                inputActions.PlayerActions.CriticalAttack.performed += _ => critical_Attack_Input = true;
             }
 
             inputActions.Enable();
@@ -101,6 +105,7 @@ namespace PM
             HandleInventoryInput();
             HandleLockOnInput();
             HandleTwoHandInput();
+            HandleCriticalAttackInput();
         }
 
         private void HandleMoveInput(float delta)
@@ -273,6 +278,15 @@ namespace PM
                     weaponSlotManager.LoadWeaponOnSlot(playerInventory.rightWeapon, false);
                     weaponSlotManager.LoadWeaponOnSlot(playerInventory.leftWeapon, true);
                 }
+            }
+        }
+
+        private void HandleCriticalAttackInput()
+        {
+            if (critical_Attack_Input)
+            {
+                critical_Attack_Input = false;
+                playerAttacker.AttemptBackStabOrRiposte();
             }
         }
     }

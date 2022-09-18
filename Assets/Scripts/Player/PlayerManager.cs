@@ -32,6 +32,7 @@ namespace PM
         {
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = GetComponent<PlayerStats>();
+            backStabCollider = GetComponentInChildren<BackStabCollider>();
         }
 
         void Start()
@@ -52,6 +53,7 @@ namespace PM
             isUsingRightHand = anim.GetBool("isUsingRightHand");
             isUsingLeftHand = anim.GetBool("isUsingLeftHand");
             isInvulnerable = anim.GetBool("isInvulnerable");
+            anim.SetBool("isDead", playerStats.isDead);
 
             inputHandler.TickInput(delta);
 

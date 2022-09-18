@@ -80,14 +80,27 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   cameraTransform: {fileID: 3712774349319409248}
   cameraPivotTransfrom: {fileID: 3712774347750389491}
-  lookSpeed: 0.1
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 513
+  enviromentLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lookSpeed: 0.01
   followSpeed: 0.1
-  pivotSpeed: 0.03
+  pivotSpeed: 0.01
   minimumPivot: -35
   maximumPivot: 35
   cameraSphereRadius: 0.2
   cameraCollisionOffset: 0.2
   minimumCollisionOffset: 0.2
+  lockedPivotPosistion: 2.25
+  unlockedPivotPosition: 1.65
+  currentLockOnTarget: {fileID: 0}
+  nearestLockOnTarget: {fileID: 0}
+  leftLockTarget: {fileID: 0}
+  rightLockTarget: {fileID: 0}
+  maximumLockOnDistance: 30
 --- !u!1 &3712774349319409253
 GameObject:
   m_ObjectHideFlags: 0

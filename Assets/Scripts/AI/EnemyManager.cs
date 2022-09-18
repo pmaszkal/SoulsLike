@@ -35,6 +35,7 @@ namespace PM
             enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidbody = GetComponent<Rigidbody>();
+            backStabCollider = GetComponentInChildren<BackStabCollider>();
             navMeshAgent.enabled = false;
             enemyRigidbody.isKinematic = false;
         }
@@ -43,6 +44,7 @@ namespace PM
         {
             HandleRecoveryTimer();
             isInteracting = enemyAnimatorManager.anim.GetBool("isInteracting");
+            enemyAnimatorManager.anim.SetBool("isDead", enemyStats.isDead);
         }
 
         private void FixedUpdate()

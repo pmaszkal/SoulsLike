@@ -22,11 +22,11 @@ namespace PM
         {
             PlayerInventory playerInventory;
             PlayerLocomotion playerLocomotion;
-            AnimatorHandler animatorHandler;
+            PlayerAnimatorManager animatorHandler;
 
             playerInventory = playerManager.GetComponent<PlayerInventory>();
             playerLocomotion = playerManager.GetComponent<PlayerLocomotion>();
-            animatorHandler = playerManager.GetComponentInChildren<AnimatorHandler>();
+            animatorHandler = playerManager.GetComponentInChildren<PlayerAnimatorManager>();
 
             playerLocomotion.rigidbody.velocity = Vector3.zero; //stops the player from moving whilst picking up item
             animatorHandler.PlayTargetAnimation("Pick Up Item", true); //plays the animation
