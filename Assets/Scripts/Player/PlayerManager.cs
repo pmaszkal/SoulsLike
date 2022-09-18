@@ -11,6 +11,7 @@ namespace PM
         Animator anim;
         CameraHandler cameraHandler;
         PlayerLocomotion playerLocomotion;
+        PlayerAnimatorManager playerAnimatorManager;
         PlayerStats playerStats;
 
         InteractableUI interactableUI;
@@ -33,10 +34,7 @@ namespace PM
             cameraHandler = FindObjectOfType<CameraHandler>();
             playerStats = GetComponent<PlayerStats>();
             backStabCollider = GetComponentInChildren<BackStabCollider>();
-        }
-
-        void Start()
-        {
+            playerAnimatorManager = GetComponentInChildren<PlayerAnimatorManager>();
             inputHandler = GetComponent<InputHandler>();
             anim = GetComponentInChildren<Animator>();
             playerLocomotion = GetComponent<PlayerLocomotion>();
@@ -54,6 +52,7 @@ namespace PM
             isUsingLeftHand = anim.GetBool("isUsingLeftHand");
             isInvulnerable = anim.GetBool("isInvulnerable");
             anim.SetBool("isDead", playerStats.isDead);
+            playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
             inputHandler.TickInput(delta);
 
@@ -69,6 +68,7 @@ namespace PM
             float delta = Time.fixedDeltaTime;
             playerLocomotion.HandleMovement(delta);
             playerLocomotion.HandleFalling(delta, playerLocomotion.moveDirection);
+            playerLocomotion.HandleRotation(delta);
         }
 
         private void LateUpdate()
