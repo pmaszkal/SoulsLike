@@ -14,7 +14,7 @@ namespace PM
         InputHandler inputHandler;
         public string lastAttack;
 
-        public LayerMask backStabLayer = 1 << 13; 
+        public LayerMask backStabLayer = 1 << 13;
 
         WeaponSlotManager weaponSlotManager;
 
@@ -30,6 +30,11 @@ namespace PM
 
         public void HandleWeaponCombo(WeaponItem weapon)
         {
+            if (playerStats.currentStamina <= 0)
+            {
+                return;
+            }
+
             if (inputHandler.comboFlag)
             {
                 animatorHandler.anim.SetBool("canDoCombo", false);
@@ -48,6 +53,11 @@ namespace PM
         {
             if (weapon.OH_Light_Attack_01.Length > 0)
             {
+                if (playerStats.currentStamina <= 0)
+                {
+                    return;
+                }
+
                 weaponSlotManager.attackingWeapon = weapon;
                 if (inputHandler.twoHandFlag)
                 {
@@ -64,10 +74,23 @@ namespace PM
 
         public void HandleHeavyAttack(WeaponItem weapon)
         {
-            //tak samo jak dla light attack TODO
+            if (playerStats.currentStamina <= 0)
+            {
+                return;
+            }
+
             weaponSlotManager.attackingWeapon = weapon;
-            animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_01, true);
-            lastAttack = weapon.OH_Heavy_Attack_01;
+
+            //tak samo jak dla light attack TODO
+            if (inputHandler.twoHandFlag)
+            {
+
+            }
+            else
+            {
+                animatorHandler.PlayTargetAnimation(weapon.OH_Heavy_Attack_01, true);
+                lastAttack = weapon.OH_Heavy_Attack_01;
+            }
         }
 
         public void HandleRBAction()
@@ -133,6 +156,11 @@ namespace PM
 
         public void AttemptBackStabOrRiposte()
         {
+            if (playerStats.currentStamina <= 0)
+            {
+                return;
+            }
+
             RaycastHit hit;
 
             if (Physics.Raycast(inputHandler.criticalAttackRayCastStartPoint.position,
@@ -163,7 +191,7 @@ namespace PM
                     animatorHandler.PlayTargetAnimation("Back Stab", true);
                     enemyCharacterManager.GetComponentInChildren<AnimatorManager>().PlayTargetAnimation("Back Stabbed", true);
 
-                    
+
                     //do damage
 
                 }
