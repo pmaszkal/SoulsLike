@@ -137,5 +137,10 @@ namespace PM
 
             focusPointBar.SetCurrentFocusPoints(currentFocusPoints);
         }
+
+        public void AddSouls(int souls)
+        {
+            soulCount += souls;
+        }
     }
 }

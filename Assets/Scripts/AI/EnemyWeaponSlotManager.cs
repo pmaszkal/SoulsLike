@@ -88,13 +88,13 @@ namespace PM
 
         public void DrainStaminaLightAttack()
         {
-            Debug.Log("drain stamina light attack");
+            //Debug.Log("drain stamina light attack");
             //playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStaminaCost * attackingWeapon.lightAttackMultiplier));
         }
 
         public void DrainStaminaHeavyAttack()
         {
-            Debug.Log("drain stamina heavy attack");
+            //Debug.Log("drain stamina heavy attack");
             //playerStats.TakeStaminaDamage(Mathf.RoundToInt(attackingWeapon.baseStaminaCost * attackingWeapon.heavyAttackMultiplier));
         }
     }

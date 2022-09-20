@@ -109,7 +109,6 @@ namespace PM
             //|| Physics.SphereCast(rayOrigin, 0.3f, Vector3.down, out hit, 2.5f, cameraHandler.ignoreLayers))
             if (Physics.SphereCast(transform.position, 0.4f, transform.forward, out hit, 1f, cameraHandler.ignoreLayers))
             {
-                Debug.Log(hit.transform.name);
                 if (hit.collider.tag == "Interactable")
                 {
                     Interactable interactableObject = hit.collider.GetComponent<Interactable>();
@@ -135,7 +134,6 @@ namespace PM
             }
             else
             {
-                Debug.Log("niehitlem");
                 if (interactableUIGameObject != null)
                 {
                     interactableUIGameObject.SetActive(false);

@@ -35,7 +35,7 @@ namespace PM
             //handle switch state
             if (enemyManager.currentTarget != null)
             {
-                        return pursueTargetState;
+                return pursueTargetState;
             }
             else
             {
