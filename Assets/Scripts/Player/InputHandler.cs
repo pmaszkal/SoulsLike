@@ -17,6 +17,7 @@ namespace PM
         public bool b_Input;
         public bool rb_Input;
         public bool rt_Input;
+        public bool lt_Input;
         public bool critical_Attack_Input;
         public bool jump_Input;
         public bool inventory_Input;
@@ -86,6 +87,7 @@ namespace PM
                 inputActions.PlayerActions.Inventory.performed += _ => inventory_Input = true;
                 inputActions.PlayerActions.RB.performed += _ => rb_Input = true;
                 inputActions.PlayerActions.RT.performed += _ => rt_Input = true;
+                inputActions.PlayerActions.LT.performed += _ => lt_Input = true;
                 inputActions.PlayerActions.LockOn.performed += _ => lock_On_Input = true;
                 inputActions.PlayerQuickSlots.DPadRight.performed += _ => d_Pad_Right = true;
                 inputActions.PlayerQuickSlots.DPadLeft.performed += _ => d_Pad_Left = true;
@@ -194,6 +196,18 @@ namespace PM
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
 
+            if (lt_Input)
+            {
+                if (twoHandFlag)
+                {
+                    //if two handing handle weapon art
+                }
+                else
+                {
+                    playerAttacker.HandleLTAction();
+                }
+            }
+
         }
 
         private void HandleQuickSlotInput()
@@ -252,19 +266,19 @@ namespace PM
                 cameraHandler.ClearLockOnTargets();
             }
 
-            if(lockOnFlag && right_Stick_Left_Input)
+            if (lockOnFlag && right_Stick_Left_Input)
             {
-                
+
                 right_Stick_Left_Input = false;
                 cameraHandler.HandleLockOn();
-                if(cameraHandler.leftLockTarget != null)
+                if (cameraHandler.leftLockTarget != null)
                 {
                     cameraHandler.currentLockOnTarget = cameraHandler.leftLockTarget;
                 }
             }
             else if (lockOnFlag && right_Stick_Right_Input)
             {
-                
+
                 right_Stick_Right_Input = false;
                 cameraHandler.HandleLockOn();
                 if (cameraHandler.rightLockTarget != null)

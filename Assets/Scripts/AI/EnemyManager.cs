@@ -35,7 +35,6 @@ namespace PM
             enemyAnimatorManager = GetComponentInChildren<EnemyAnimatorManager>();
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
             enemyRigidbody = GetComponent<Rigidbody>();
-            backStabCollider = GetComponentInChildren<BackStabCollider>();
             navMeshAgent.enabled = false;
             enemyRigidbody.isKinematic = false;
         }

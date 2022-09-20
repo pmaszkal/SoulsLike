@@ -10,8 +10,13 @@ namespace PM
         public Transform lockOnTransform;
 
         [Header("Combat Colliders")]
-        public BoxCollider backStabBoxCollider;
-        public BackStabCollider backStabCollider;
+        public CriticalDamageCollider backStabCollider;
+        public CriticalDamageCollider riposteCollider;
+
+        [Header("Combat Flags")]
+        public bool canBeRiposted;
+        public bool canBeParried;
+        public bool isParrying;
 
         //damage will be inflicted rugin an animation event
         //used in backstab or riposte animations
