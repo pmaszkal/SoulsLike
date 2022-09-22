@@ -11,6 +11,11 @@ namespace PM
 
         public override State Tick(EnemyManager enemyManager, EnemyStats enemyStats, EnemyAnimatorManager enemyAnimatorManager)
         {
+            if (enemyManager.isInteracting)
+            {
+                return this;
+            }
+
             if (enemyManager.isPerformingAction)
             {
                 enemyAnimatorManager.anim.SetFloat("Vertical", 0, 0.1f, Time.deltaTime);
@@ -27,9 +32,6 @@ namespace PM
             }
 
             HandleRotateTowardsTarget(enemyManager);
-
-            enemyManager.navMeshAgent.transform.localPosition = Vector3.zero;
-            enemyManager.navMeshAgent.transform.localRotation = Quaternion.identity;
 
             if (distanceFromTarget <= enemyManager.maximumAttackRange)
             {

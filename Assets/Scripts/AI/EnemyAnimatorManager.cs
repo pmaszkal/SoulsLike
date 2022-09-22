@@ -33,14 +33,34 @@ namespace PM
             enemyManager.pendingCriticalDamage = 0;
         }
 
+        public void CanRotate()
+        {
+            anim.SetBool("canRotate", true);
+        }
+
+        public void StopRotation()
+        {
+            anim.SetBool("canRotate", false);
+        }
+
         public void EnableCombo()
         {
-            //anim.SetBool("canDoCombo", true);
+            anim.SetBool("canDoCombo", true);
         }
 
         public void DisableCombo()
         {
-            //anim.SetBool("canDoCombo", false);
+            anim.SetBool("canDoCombo", false);
+        }
+
+        public void EnableIsInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", true);
+        }
+
+        public void DisableIsInvulnerable()
+        {
+            anim.SetBool("isInvulnerable", false);
         }
 
         public void AwardSoulsOnDeath()
@@ -56,16 +76,6 @@ namespace PM
                     soulCountBar.SetSoulCountText(playerStats.soulCount);
                 }
             }
-        }
-
-        public void CanRotate()
-        {
-
-        }
-
-        public void StopRotation()
-        {
-
         }
 
 

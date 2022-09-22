@@ -10109,6 +10109,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1095449540, guid: c55d1e7259dce994498ea4d9b8f4c43f, type: 3}
+      propertyPath: enemyAttacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1570685933, guid: c55d1e7259dce994498ea4d9b8f4c43f, type: 3}
       propertyPath: currentState
       value: 
