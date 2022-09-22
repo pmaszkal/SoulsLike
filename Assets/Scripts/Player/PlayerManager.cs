@@ -52,6 +52,7 @@ namespace PM
             isUsingLeftHand = anim.GetBool("isUsingLeftHand");
             isInvulnerable = anim.GetBool("isInvulnerable");
             anim.SetBool("isDead", playerStats.isDead);
+            anim.SetBool("isBlocking", isBlocking);
             playerAnimatorManager.canRotate = anim.GetBool("canRotate");
 
             inputHandler.TickInput(delta);

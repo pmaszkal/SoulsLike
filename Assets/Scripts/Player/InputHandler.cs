@@ -17,6 +17,7 @@ namespace PM
         public bool b_Input;
         public bool rb_Input;
         public bool rt_Input;
+        public bool lb_Input;
         public bool lt_Input;
         public bool critical_Attack_Input;
         public bool jump_Input;
@@ -43,6 +44,7 @@ namespace PM
         public Transform criticalAttackRayCastStartPoint;
 
         PlayerControls inputActions;
+        BlockingCollider blockingCollider;
         PlayerAttacker playerAttacker;
         PlayerInventory playerInventory;
         PlayerManager playerManager;
@@ -61,6 +63,7 @@ namespace PM
             playerInventory = GetComponent<PlayerInventory>();
             playerManager = GetComponent<PlayerManager>();
             playerStats = GetComponent<PlayerStats>();
+            blockingCollider = GetComponentInChildren<BlockingCollider>();
             uiManager = FindObjectOfType<UIManager>();
             cameraHandler = FindObjectOfType<CameraHandler>();
             weaponSlotManager = GetComponentInChildren<WeaponSlotManager>();
@@ -87,6 +90,8 @@ namespace PM
                 inputActions.PlayerActions.Inventory.performed += _ => inventory_Input = true;
                 inputActions.PlayerActions.RB.performed += _ => rb_Input = true;
                 inputActions.PlayerActions.RT.performed += _ => rt_Input = true;
+                inputActions.PlayerActions.LB.performed += _ => lb_Input = true;
+                inputActions.PlayerActions.LB.canceled += _ => lb_Input = false;
                 inputActions.PlayerActions.LT.performed += _ => lt_Input = true;
                 inputActions.PlayerActions.LockOn.performed += _ => lock_On_Input = true;
                 inputActions.PlayerQuickSlots.DPadRight.performed += _ => d_Pad_Right = true;
@@ -106,7 +111,7 @@ namespace PM
         {
             HandleMoveInput(delta);
             HandleRollInput(delta);
-            HandleAttackInput(delta);
+            HandleCombatInput(delta);
             HandleQuickSlotInput();
             HandleInventoryInput();
             HandleLockOnInput();
@@ -155,7 +160,7 @@ namespace PM
             }
         }
 
-        private void HandleAttackInput(float delta)
+        private void HandleCombatInput(float delta)
         {
 
             //rb for right hand weapon
@@ -196,6 +201,7 @@ namespace PM
                 playerAttacker.HandleHeavyAttack(playerInventory.rightWeapon);
             }
 
+
             if (lt_Input)
             {
                 if (twoHandFlag)
@@ -208,6 +214,20 @@ namespace PM
                 }
             }
 
+            if (lb_Input)
+            {
+                playerAttacker.HandleLBAction();
+            }
+            else
+            {
+                playerManager.isBlocking = false;
+                if (blockingCollider.blockingCollider.enabled)
+                {
+                    blockingCollider.DisableBlockingCollider();
+                }
+            }
+
+            
         }
 
         private void HandleQuickSlotInput()

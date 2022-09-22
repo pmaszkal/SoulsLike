@@ -14,6 +14,9 @@ namespace PM
         public int baseDamage = 25;
         public int criticalDamageMultiplier = 4;
 
+        [Header("Absorption")]
+        public float physicalDamageAbsorption;
+
         [Header("Idle Animations")]
         public string right_Hand_Idle;
         public string left_Hand_Idle;

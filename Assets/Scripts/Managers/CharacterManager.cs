@@ -16,6 +16,7 @@ namespace PM
         [Header("Combat Flags")]
         public bool canBeRiposted;
         public bool canBeParried;
+        public bool isBlocking;
         public bool isParrying;
 
         //damage will be inflicted rugin an animation event

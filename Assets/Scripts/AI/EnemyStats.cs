@@ -37,13 +37,13 @@ namespace PM
             }
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, string damageAnimation = "Damage_01")
         {
             if (isDead) 
                 return;
             currentHealth = currentHealth - damage;
 
-            enemyAnimatorManager.PlayTargetAnimation("Damage_01",true);
+            enemyAnimatorManager.PlayTargetAnimation(damageAnimation,true);
 
             if (currentHealth <= 0)
             {

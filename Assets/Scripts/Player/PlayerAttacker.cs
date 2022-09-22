@@ -8,6 +8,7 @@ namespace PM
     public class PlayerAttacker : MonoBehaviour
     {
         PlayerAnimatorManager animatorHandler;
+        PlayerEquipmentManager playerEquipmentManager;
         PlayerManager playerManager;
         PlayerStats playerStats;
         PlayerInventory playerInventory;
@@ -27,6 +28,7 @@ namespace PM
             playerInventory = GetComponentInParent<PlayerInventory>();
             inputHandler = GetComponentInParent<InputHandler>();
             weaponSlotManager = GetComponent<WeaponSlotManager>();
+            playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
         }
 
         public void HandleWeaponCombo(WeaponItem weapon)
@@ -121,6 +123,11 @@ namespace PM
             }
         }
 
+        public void HandleLBAction()
+        {
+            PerformLBBlockingAction();
+        }
+
         private void PerformRBMeleeAction()
         {
             if (playerManager.canDoCombo)
@@ -183,6 +190,19 @@ namespace PM
         private void SuccessfullyCastSpell()
         {
             playerInventory.currentSpell.SuccessfullyCastSpell(animatorHandler, playerStats);
+        }
+
+        private void PerformLBBlockingAction()
+        {
+            if (playerManager.isInteracting)
+                return;
+
+            if (playerManager.isBlocking)
+                return;
+
+            animatorHandler.PlayTargetAnimation("Block Start", false, true);
+            playerEquipmentManager.OpenBlockingCollider();
+            playerManager.isBlocking = true;
         }
 
         public void AttemptBackStabOrRiposte()
