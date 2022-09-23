@@ -8,6 +8,8 @@ namespace PM
     {
         EnemyAnimatorManager enemyAnimatorManager;
 
+        public UIEnemyHealthBar enemyHealthBar;
+
         public int soulsAwardedOnDeath = 50;
 
         private void Awake()
@@ -19,6 +21,7 @@ namespace PM
         {
             maxHealth = SetMaxHealthFromHealthLevel();
             currentHealth = maxHealth;
+            enemyHealthBar.SetMaxHealth(maxHealth);
         }
 
         private int SetMaxHealthFromHealthLevel()
@@ -29,6 +32,8 @@ namespace PM
         public void TakeDamageNoAnimation(int damage)
         {
             currentHealth = currentHealth - damage;
+
+            enemyHealthBar.SetHealth(currentHealth);
 
             if (currentHealth <= 0)
             {
@@ -42,6 +47,7 @@ namespace PM
             if (isDead) 
                 return;
             currentHealth = currentHealth - damage;
+            enemyHealthBar.SetHealth(currentHealth);
 
             enemyAnimatorManager.PlayTargetAnimation(damageAnimation,true);
 
