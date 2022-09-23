@@ -106,7 +106,7 @@ namespace PM
                     else
                     {
                         Vector3 rotationDirection = moveDirection;
-                        rotationDirection = cameraHandler.currentLockOnTarget.position - transform.position;
+                        rotationDirection = cameraHandler.currentLockOnTarget.transform.position - transform.position;
                         rotationDirection.y = 0;
                         rotationDirection.Normalize();
                         Quaternion tr = Quaternion.LookRotation(rotationDirection);

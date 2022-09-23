@@ -29,6 +29,10 @@ namespace PM
         public float maximumDetectionAngle = 50;
         public float minimumDetectionAngle = -50;
 
+        [Header("AI Combat Settings")]
+        public bool allowAIToPerformCombos;
+        public int comboLikelyHood = 50;
+
         public float currentRecoveryTime = 0;
 
         private void Awake()
